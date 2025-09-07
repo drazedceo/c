@@ -363,9 +363,7 @@ td, th {
 
 /* Dark Mode Toggle Button - Redesigned */
 .dark-mode-toggle {
-  position: fixed;
-  top: 20px;
-  right: 20px;
+  position: relative;
   z-index: 1001;
   background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
   color: #ecf0f1;
@@ -382,8 +380,31 @@ td, th {
   display: flex;
   align-items: center;
   justify-content: center;
-  position: relative;
   overflow: hidden;
+}
+
+/* Desktop positioning - below logo */
+@media (min-width: 769px) {
+  .dark-mode-toggle {
+    position: absolute;
+    top: 70px;
+    left: 20px;
+  }
+}
+
+/* Mobile positioning - inside navigation */
+@media (max-width: 768px) {
+  .dark-mode-toggle {
+    position: relative;
+    margin-left: auto;
+    margin-right: 10px;
+    width: 50px;
+    height: 26px;
+  }
+  
+  .nav.open .dark-mode-toggle {
+    margin: 10px auto;
+  }
 }
 
 .dark-mode-toggle::before {
@@ -401,6 +422,13 @@ td, th {
     inset 0 1px 0 rgba(255, 255, 255, 0.2);
 }
 
+@media (max-width: 768px) {
+  .dark-mode-toggle::before {
+    width: 22px;
+    height: 22px;
+  }
+}
+
 [data-theme="dark"] .dark-mode-toggle {
   background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
 }
@@ -411,6 +439,12 @@ td, th {
   box-shadow: 
     0 2px 8px rgba(0, 0, 0, 0.4),
     inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+@media (max-width: 768px) {
+  [data-theme="dark"] .dark-mode-toggle::before {
+    transform: translateX(24px);
+  }
 }
 
 .dark-mode-toggle:hover {
@@ -517,25 +551,6 @@ td, th {
   color: white;
 }
 
-/* Mobile Responsive Adjustments */
-@media (max-width: 768px) {
-  .dark-mode-toggle {
-    top: 20px;
-    right: 70px;
-    width: 50px;
-    height: 26px;
-  }
-  
-  .dark-mode-toggle::before {
-    width: 22px;
-    height: 22px;
-  }
-  
-  [data-theme="dark"] .dark-mode-toggle::before {
-    transform: translateX(24px);
-  }
-}
-
 /* High Contrast Mode Support */
 @media (prefers-contrast: high) {
   [data-theme="dark"] {
@@ -570,7 +585,7 @@ td, th {
 /* Enhanced Shadow System for Dark Mode */
 /* Marquee in Dark Mode */
 [data-theme="dark"] .markets-marquee {
-  background: var(--footer-bg);
+  background: #000000;
   color: var(--text-dark);
 }
 
@@ -583,4 +598,44 @@ td, th {
 [data-theme="dark"] .contact-form {
   background: #FFFFFF;
   box-shadow: 0 8px 24px var(--shadow-heavy), 0 4px 8px var(--shadow-standard-medium);
+}
+
+/* Navigation Bar Dark Mode Styling */
+[data-theme="dark"] .header {
+  background: #000000;
+  backdrop-filter: none;
+}
+
+[data-theme="dark"] .header.scrolled {
+  background: #000000;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3), 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Navigation links in dark mode */
+[data-theme="dark"] .nav-link {
+  color: #FFFFFF;
+}
+
+[data-theme="dark"] .nav-link:hover,
+[data-theme="dark"] .nav-link.active {
+  color: var(--accent-red);
+  background: rgba(211, 47, 47, 0.1);
+}
+
+/* Mobile menu button in dark mode */
+[data-theme="dark"] .mobile-menu-btn {
+  color: #FFFFFF;
+}
+
+/* Logo adjustments for dark mode */
+[data-theme="dark"] .logo {
+  filter: brightness(1.1);
+}
+
+/* Mobile navigation in dark mode */
+@media (max-width: 768px) {
+  [data-theme="dark"] .nav {
+    background: #000000;
+    border-top: 1px solid #333333;
+  }
 }

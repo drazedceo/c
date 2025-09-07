@@ -36,15 +36,44 @@ class EnhancedClimaxHosiery {
     `;
     toggle.setAttribute('aria-label', 'Toggle dark mode');
     toggle.title = 'Toggle dark mode';
-    document.body.appendChild(toggle);
+    
+    // Position toggle based on screen size
+    this.positionDarkModeToggle(toggle);
+    
+    // Reposition on window resize
+    window.addEventListener('resize', () => {
+      this.positionDarkModeToggle(toggle);
+    });
+    
     return toggle;
+  }
+  
+  positionDarkModeToggle(toggle) {
+    const isMobile = window.innerWidth <= 768;
+    const currentParent = toggle.parentNode;
+    
+    if (isMobile) {
+      // Mobile: Place inside header content
+      const headerContent = document.querySelector('.header-content');
+      if (headerContent && currentParent !== headerContent) {
+        if (currentParent) currentParent.removeChild(toggle);
+        headerContent.appendChild(toggle);
+      }
+    } else {
+      // Desktop: Place below logo (in body)
+      if (currentParent !== document.body) {
+        if (currentParent) currentParent.removeChild(toggle);
+        document.body.appendChild(toggle);
+      }
+    }
   }
 
   loadDarkModePreference() {
-    const savedTheme = localStorage.getItem('theme');
+    const savedTheme = localStorage.getItem('climax-theme');
     const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
     
-    if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+    // Default to light mode unless explicitly set to dark
+    if (savedTheme === 'dark') {
       this.enableDarkMode();
     } else {
       this.disableDarkMode();
@@ -62,7 +91,8 @@ class EnhancedClimaxHosiery {
 
     // Listen for system theme changes
     window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
-      if (!localStorage.getItem('theme')) {
+      const savedTheme = localStorage.getItem('climax-theme');
+      if (!savedTheme) {
         if (e.matches) {
           this.enableDarkMode();
         } else {
@@ -88,7 +118,7 @@ class EnhancedClimaxHosiery {
       <span class="toggle-icon moon-icon">☾</span>
     `;
     this.darkModeToggle.title = 'Switch to light mode';
-    localStorage.setItem('theme', 'dark');
+    localStorage.setItem('climax-theme', 'dark');
   }
 
   disableDarkMode() {
@@ -98,7 +128,7 @@ class EnhancedClimaxHosiery {
       <span class="toggle-icon moon-icon">☾</span>
     `;
     this.darkModeToggle.title = 'Switch to dark mode';
-    localStorage.setItem('theme', 'light');
+    localStorage.setItem('climax-theme', 'light');
   }
 
   // Enhanced Mobile Scroll
