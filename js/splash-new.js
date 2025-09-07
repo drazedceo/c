@@ -141,35 +141,35 @@ class NewSplashScreen {
     
     // FRAME 1: Blank White (0-200ms) - already set
     
-    // FRAME 2: Split Transition & Logo Reveal (200-600ms)
+    // FRAME 2: Split Transition & Logo Reveal (200-800ms) - Extended
     setTimeout(() => {
       this.panelLeft.style.transform = 'translateX(-100%)';
       this.panelRight.style.transform = 'translateX(100%)';
       this.logoElement.style.opacity = '1';
     }, 200);
     
-    // FRAME 3: Logo Hold (600-900ms) - logo is visible
+    // FRAME 3: Logo Hold (800-1200ms) - Extended logo visibility
     
-    // FRAME 4: Zoom & Fade (900-1300ms)
+    // FRAME 4: Zoom & Fade (1200-1700ms) - Extended animation
     setTimeout(() => {
-      this.logoElement.style.transition = 'all 400ms cubic-bezier(0.55, 0.085, 0.68, 0.53)';
+      this.logoElement.style.transition = 'all 500ms cubic-bezier(0.55, 0.085, 0.68, 0.53)';
       this.logoElement.style.transform = 'translate(-50%, -50%) scale(12)';
       this.logoElement.style.opacity = '0';
-    }, 900);
+    }, 1200);
     
-    // FRAME 5: Background Cross-Fade (1300-1500ms)
+    // FRAME 5: Background Cross-Fade (1700-1800ms) - Shortened black screen
     setTimeout(() => {
-      this.splashElement.style.transition = 'background-color 200ms linear';
+      this.splashElement.style.transition = 'background-color 100ms linear';
       this.splashElement.style.backgroundColor = '#000000';
-    }, 1300);
+    }, 1700);
     
-    // FRAME 6: Bar-1 Sweep (1500-1650ms) - First diagonal bar
+    // FRAME 6: Bar-1 Sweep (1800-1950ms) - First diagonal bar
     setTimeout(() => {
       this.bars[0].style.transitionDelay = '0ms';
       this.bars[0].style.transform = 'rotate(-45deg) translateX(0)';
-    }, 1500);
+    }, 1800);
     
-    // FRAME 7: Bar-2 + Bar-3 Join (1650-1800ms) - Remaining bars with stagger
+    // FRAME 7: Bar-2 + Bar-3 Join (1950-2100ms) - Remaining bars with stagger
     setTimeout(() => {
       this.bars[1].style.transitionDelay = '50ms';
       this.bars[1].style.transform = 'rotate(-45deg) translateX(0)';
@@ -178,9 +178,9 @@ class NewSplashScreen {
         this.bars[2].style.transitionDelay = '0ms';
         this.bars[2].style.transform = 'rotate(-45deg) translateX(0)';
       }, 75);
-    }, 1650);
+    }, 1950);
     
-    // FRAME 8: Bars Slide Off & Reveal Homepage (1800-3000ms)
+    // FRAME 8: Bars Slide Off & Reveal Homepage (2100-3000ms)
     setTimeout(() => {
       this.bars.forEach((bar, index) => {
         setTimeout(() => {
@@ -188,7 +188,7 @@ class NewSplashScreen {
           bar.style.transform = 'rotate(-45deg) translateX(-200vw)';
         }, (2 - index) * 100);
       });
-    }, 1800);
+    }, 2100);
     
     // Complete animation (3000ms - 3 seconds total)
     setTimeout(() => {
